@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ламакорд — варианты: градиент от рамки + плашки со значками</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ====== демо: градиент от верхней рамки, плашки со значками ====== */
+    [data-load] { animation-delay: 0s !important; }
+
+    .demo-note {
+      max-width: var(--maxw);
+      margin: 26px auto 0;
+      padding: 0 var(--pad);
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .variant { padding: 46px 0 8px; }
+    .variant__label {
+      display: inline-flex;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .variant__desc {
+      color: var(--muted);
+      font-size: 14.5px;
+      margin-bottom: 20px;
+    }
+
+    /* ---------- карточка с градиентом от рамки (общее) ---------- */
+    .vg .card {
+      padding-top: 26px;
+      background: linear-gradient(180deg,
+        color-mix(in srgb, var(--c) 78%, #fff) 0px,
+        var(--c) 52px,
+        color-mix(in srgb, var(--c) 42%, #fff) 108px,
+        color-mix(in srgb, var(--c) 8%, #fff) 152px,
+        #fff 184px);
+    }
+
+    .card__stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 7px;
+      width: 100%;
+      order: -1;              /* статы над названием */
+      margin-bottom: 10px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(10, 10, 14, .26);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      backdrop-filter: blur(3px);
+    }
+    .chip b { font-weight: 800; }
+    .chip .i { width: 15px; height: 15px; flex: none; fill: currentColor; }
+    .chip .i--star { fill: #ffc93c; }
+    .card[data-store="ym"] .chip .i--star { fill: #ffde59; }
+
+    /* плитки категорий с витрины — 4 шт., мельче, чтобы не растягивать карточку */
+    .vA .card__shelf { gap: 8px; margin-top: 8px; }
+    .vA .card__shelf img { border-radius: 10px; }
+
+    /* рамка как в C, но толще — 2.5px; верёвка отключена */
+    .vA .card { border: 2.5px solid var(--c); }
+    .vA .card__rope { display: none; }
+
+    /* ---------- Вариант C: цифры одной строкой, компактный градиент ---------- */
+    /* минимализм: тонкая линия цвета площадки вместо анимированной верёвки */
+    .vC .card {
+      border: 1.5px solid var(--c);
+      padding-top: 20px;
+      background: linear-gradient(180deg,
+        color-mix(in srgb, var(--c) 78%, #fff) 0px,
+        var(--c) 34px,
+        color-mix(in srgb, var(--c) 42%, #fff) 76px,
+        color-mix(in srgb, var(--c) 8%, #fff) 106px,
+        #fff 128px);
+    }
+    .card__statline {
+      order: -1;              /* строка над названием, на градиенте */
+      width: 100%;
+      margin-bottom: 14px;
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: .01em;
+      white-space: nowrap;
+    }
+    .card[data-store="ym"] .card__statline { color: var(--ink); }
+    .vC .card__shelf { gap: 8px; margin-top: 8px; }
+    .vC .card__shelf img { border-radius: 10px; }
+
+    /* ---------- Вариант B: без товаров — компактнее, крупная кнопка ---------- */
+    .vB .card {
+      padding-bottom: 32px;
+      background: linear-gradient(180deg,
+        color-mix(in srgb, var(--c) 78%, #fff) 0px,
+        var(--c) 52px,
+        color-mix(in srgb, var(--c) 42%, #fff) 104px,
+        color-mix(in srgb, var(--c) 8%, #fff) 142px,
+        #fff 168px);
+    }
+    .vB .card__btn {
+      margin-top: 18px;
+      padding: 16px 34px;
+      font-size: 15.5px;
+      white-space: nowrap;
+    }
+    .vB .card__btn svg { width: 19px; height: 19px; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a class="logo" href="/">
+      <img class="logo__mark" src="assets/logo.svg" alt="Ламакорд">
+      <span class="logo__word">ЛАМАКОРД</span>
+    </a>
+    <a class="header__phone" href="tel:+79933570366">+7 (993) 357-03-66</a>
+  </header>
+
+  <main class="main">
+
+    <p class="demo-note">Демо: вариант A — плашки со значками, вариант B — без товаров, вариант C — цифры одной строкой на компактном градиенте.</p>
+
+    <!-- ======================= ВАРИАНТ A ======================= -->
+    <section class="sect variant vg vA">
+      <span class="variant__label">Вариант A — с товарами</span>
+      <p class="variant__desc">Одинаковые товары на всех трёх карточках, чтобы не путать покупателя</p>
+      <div class="cards">
+
+        <a class="card" data-store="ozon" href="https://www.ozon.ru/seller/1386824/" target="_blank" rel="noopener">
+          <svg class="card__rope" aria-hidden="true"><rect class="card__rope-base" pathLength="100"/><rect class="card__rope-twist"/></svg>
+          <span class="card__stats">
+            <span class="chip"><svg class="i i--star" viewBox="0 0 24 24"><path d="M12 2.5l2.83 5.9 6.47.86-4.73 4.5 1.19 6.4L12 17.1l-5.76 3.06 1.19-6.4-4.73-4.5 6.47-.86z"/></svg><b>4,9</b></span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4.6-3.8H20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg><b>89,4К</b>&nbsp;отзывов</span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M12 2 3 6.6v10.8L12 22l9-4.6V6.6L12 2zm0 2.3 6.3 3.2L12 10.7 5.7 7.5 12 4.3zM5 9.2l6 3v7.1l-6-3.1V9.2zm14 0v7l-6 3.1v-7.1l6-3z"/></svg><b>256К</b>&nbsp;заказов</span>
+          </span>
+          <span class="card__name">Ozon</span>
+          <span class="card__shelf" aria-hidden="true">
+            <img src="assets/cat1.jpg" alt=""><img src="assets/cat2.jpg" alt=""><img src="assets/cat3.jpg" alt=""><img src="assets/cat4.jpg" alt="">
+          </span>
+          <span class="card__btn">Перейти в магазин
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="card" data-store="wb" href="#" target="_blank" rel="noopener">
+          <svg class="card__rope" aria-hidden="true"><rect class="card__rope-base" pathLength="100"/><rect class="card__rope-twist"/></svg>
+          <span class="card__stats">
+            <span class="chip"><svg class="i i--star" viewBox="0 0 24 24"><path d="M12 2.5l2.83 5.9 6.47.86-4.73 4.5 1.19 6.4L12 17.1l-5.76 3.06 1.19-6.4-4.73-4.5 6.47-.86z"/></svg><b>4,9</b></span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4.6-3.8H20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg><b>13 035</b>&nbsp;оценок</span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M12 2 3 6.6v10.8L12 22l9-4.6V6.6L12 2zm0 2.3 6.3 3.2L12 10.7 5.7 7.5 12 4.3zM5 9.2l6 3v7.1l-6-3.1V9.2zm14 0v7l-6 3.1v-7.1l6-3z"/></svg><b>72К</b>&nbsp;продано</span>
+          </span>
+          <span class="card__name">Wildberries</span>
+          <span class="card__shelf" aria-hidden="true">
+            <img src="assets/cat1.jpg" alt=""><img src="assets/cat2.jpg" alt=""><img src="assets/cat3.jpg" alt=""><img src="assets/cat4.jpg" alt="">
+          </span>
+          <span class="card__btn">Перейти в магазин
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="card" data-store="ym" href="#" target="_blank" rel="noopener">
+          <svg class="card__rope" aria-hidden="true"><rect class="card__rope-base" pathLength="100"/><rect class="card__rope-twist"/></svg>
+          <span class="card__stats">
+            <span class="chip"><svg class="i i--star" viewBox="0 0 24 24"><path d="M12 2.5l2.83 5.9 6.47.86-4.73 4.5 1.19 6.4L12 17.1l-5.76 3.06 1.19-6.4-4.73-4.5 6.47-.86z"/></svg><b>4,9</b></span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4.6-3.8H20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg><b>941</b>&nbsp;оценка</span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M12 2 3 6.6v10.8L12 22l9-4.6V6.6L12 2zm0 2.3 6.3 3.2L12 10.7 5.7 7.5 12 4.3zM5 9.2l6 3v7.1l-6-3.1V9.2zm14 0v7l-6 3.1v-7.1l6-3z"/></svg><b>7,2К</b>&nbsp;заказов</span>
+          </span>
+          <span class="card__name">Яндекс Маркет</span>
+          <span class="card__shelf" aria-hidden="true">
+            <img src="assets/cat1.jpg" alt=""><img src="assets/cat2.jpg" alt=""><img src="assets/cat3.jpg" alt=""><img src="assets/cat4.jpg" alt="">
+          </span>
+          <span class="card__btn">Перейти в магазин
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ======================= ВАРИАНТ B ======================= -->
+    <section class="sect variant vg vB" style="padding-bottom: 60px;">
+      <span class="variant__label">Вариант B — без товаров</span>
+      <p class="variant__desc">Карточка компактнее, кнопка крупнее</p>
+      <div class="cards">
+
+        <a class="card" data-store="ozon" href="https://www.ozon.ru/seller/1386824/" target="_blank" rel="noopener">
+          <svg class="card__rope" aria-hidden="true"><rect class="card__rope-base" pathLength="100"/><rect class="card__rope-twist"/></svg>
+          <span class="card__stats">
+            <span class="chip"><svg class="i i--star" viewBox="0 0 24 24"><path d="M12 2.5l2.83 5.9 6.47.86-4.73 4.5 1.19 6.4L12 17.1l-5.76 3.06 1.19-6.4-4.73-4.5 6.47-.86z"/></svg><b>4,9</b></span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4.6-3.8H20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg><b>89,4К</b>&nbsp;отзывов</span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M12 2 3 6.6v10.8L12 22l9-4.6V6.6L12 2zm0 2.3 6.3 3.2L12 10.7 5.7 7.5 12 4.3zM5 9.2l6 3v7.1l-6-3.1V9.2zm14 0v7l-6 3.1v-7.1l6-3z"/></svg><b>256К</b>&nbsp;заказов</span>
+          </span>
+          <span class="card__name">Ozon</span>
+          <span class="card__btn">Перейти в магазин
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="card" data-store="wb" href="#" target="_blank" rel="noopener">
+          <svg class="card__rope" aria-hidden="true"><rect class="card__rope-base" pathLength="100"/><rect class="card__rope-twist"/></svg>
+          <span class="card__stats">
+            <span class="chip"><svg class="i i--star" viewBox="0 0 24 24"><path d="M12 2.5l2.83 5.9 6.47.86-4.73 4.5 1.19 6.4L12 17.1l-5.76 3.06 1.19-6.4-4.73-4.5 6.47-.86z"/></svg><b>4,9</b></span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4.6-3.8H20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg><b>13 035</b>&nbsp;оценок</span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M12 2 3 6.6v10.8L12 22l9-4.6V6.6L12 2zm0 2.3 6.3 3.2L12 10.7 5.7 7.5 12 4.3zM5 9.2l6 3v7.1l-6-3.1V9.2zm14 0v7l-6 3.1v-7.1l6-3z"/></svg><b>72К</b>&nbsp;продано</span>
+          </span>
+          <span class="card__name">Wildberries</span>
+          <span class="card__btn">Перейти в магазин
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="card" data-store="ym" href="#" target="_blank" rel="noopener">
+          <svg class="card__rope" aria-hidden="true"><rect class="card__rope-base" pathLength="100"/><rect class="card__rope-twist"/></svg>
+          <span class="card__stats">
+            <span class="chip"><svg class="i i--star" viewBox="0 0 24 24"><path d="M12 2.5l2.83 5.9 6.47.86-4.73 4.5 1.19 6.4L12 17.1l-5.76 3.06 1.19-6.4-4.73-4.5 6.47-.86z"/></svg><b>4,9</b></span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4.6-3.8H20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg><b>941</b>&nbsp;оценка</span>
+            <span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M12 2 3 6.6v10.8L12 22l9-4.6V6.6L12 2zm0 2.3 6.3 3.2L12 10.7 5.7 7.5 12 4.3zM5 9.2l6 3v7.1l-6-3.1V9.2zm14 0v7l-6 3.1v-7.1l6-3z"/></svg><b>7,2К</b>&nbsp;заказов</span>
+          </span>
+          <span class="card__name">Яндекс Маркет</span>
+          <span class="card__btn">Перейти в магазин
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ======================= ВАРИАНТ C: цифры одной строкой ======================= -->
+    <section class="sect variant vg vC" style="padding-bottom: 70px;">
+      <span class="variant__label">Вариант C — минимализм</span>
+      <p class="variant__desc">Тонкая линия цвета площадки вместо верёвки, цифры одной строкой на компактном градиенте, единый формат «N+ отзывов»</p>
+      <div class="cards">
+
+        <a class="card" data-store="ozon" href="https://www.ozon.ru/seller/1386824/" target="_blank" rel="noopener">
+          <span class="card__statline">4,9 ★ · 89 000+ отзывов</span>
+          <span class="card__name">Ozon</span>
+          <span class="card__shelf" aria-hidden="true">
+            <img src="assets/cat1.jpg" alt=""><img src="assets/cat2.jpg" alt=""><img src="assets/cat3.jpg" alt=""><img src="assets/cat4.jpg" alt="">
+          </span>
+          <span class="card__btn">Перейти в магазин
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="card" data-store="wb" href="#" target="_blank" rel="noopener">
+          <span class="card__statline">4,9 ★ · 13 000+ отзывов</span>
+          <span class="card__name">Wildberries</span>
+          <span class="card__shelf" aria-hidden="true">
+            <img src="assets/cat1.jpg" alt=""><img src="assets/cat2.jpg" alt=""><img src="assets/cat3.jpg" alt=""><img src="assets/cat4.jpg" alt="">
+          </span>
+          <span class="card__btn">Перейти в магазин
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="card" data-store="ym" href="#" target="_blank" rel="noopener">
+          <span class="card__statline">4,9 ★ · 940+ отзывов</span>
+          <span class="card__name">Яндекс Маркет</span>
+          <span class="card__shelf" aria-hidden="true">
+            <img src="assets/cat1.jpg" alt=""><img src="assets/cat2.jpg" alt=""><img src="assets/cat3.jpg" alt=""><img src="assets/cat4.jpg" alt="">
+          </span>
+          <span class="card__btn">Перейти в магазин
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ======================= ОПТ (как на главной) ======================= -->
+    <section class="sect sect--opt">
+      <h2 class="sect__title">Для <span class="sect__accent">оптовых</span> покупателей</h2>
+
+      <a class="card card--opt" data-store="opt"
+         href="https://lama-cord.ru" target="_blank" rel="noopener">
+        <svg class="card__rope" aria-hidden="true">
+          <rect class="card__rope-base" pathLength="100" />
+          <rect class="card__rope-twist" />
+        </svg>
+        <span class="card__chip">Заказы от 30 000 ₽</span>
+        <span class="card__name">Перейти на оптовый сайт</span>
+        <span class="card__stat">Партии под заказ, прайс-лист и бесплатные образцы — lama-cord.ru</span>
+        <span class="card__shelf card__shelf--wide" aria-hidden="true">
+          <img src="assets/thumb4.jpg" alt=""><img src="assets/thumb6.jpg" alt=""><img src="assets/thumb2.jpg" alt=""><img src="assets/thumb7.jpg" alt="">
+        </span>
+        <span class="card__btn">На сайт
+          <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__row">
+      <span class="footer__fact">Производим канатно-верёвочные изделия с 1992 года</span>
+      <span class="footer__contacts">
+        <a href="tel:+79933570366">+7 (993) 357-03-66</a>
+        <span class="footer__sep">·</span>
+        <a href="mailto:info@lamacord.ru">info@lamacord.ru</a>
+      </span>
+    </div>
+  </footer>
+
+</body>
+</html>
