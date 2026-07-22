@@ -118,14 +118,16 @@ a { color: inherit; text-decoration: none; }
 
 /* верхняя строка выплывает слева, акцентная (хаки) — справа */
 .hero__line {
-  transform: translateX(-64px);
+  transform: translateX(-180px);
   animation-name: slideleft;
+  animation-duration: 1.15s;
 }
 @keyframes slideleft { to { opacity: 1; transform: none; } }
 
 .hero__line--accent {
-  transform: translateX(64px);
+  transform: translateX(180px);
   animation-name: slideright;
+  animation-duration: 1.15s;
 }
 @keyframes slideright { to { opacity: 1; transform: none; } }
 
