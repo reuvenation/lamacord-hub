@@ -10,9 +10,6 @@
   var INSET = 1;   // половина stroke 2px — центр линии на месте CSS-бордера
   var RADIUS = 22; // border-radius карточки
 
-  // старт отрисовки — после каскадного появления карточки ([data-load])
-  var DELAYS = { '6': 0.9, '7': 1.1, '8': 1.3, '10': 1.7 };
-
   function halves(w, h) {
     var r = RADIUS - INSET;
     var right =
@@ -50,7 +47,6 @@
     }
     size();
 
-    svg.style.setProperty('--draw-delay', (DELAYS[card.getAttribute('data-load')] || 0.9) + 's');
     card.appendChild(svg);
     card.classList.add('card--drawn');
 
