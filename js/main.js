@@ -1,7 +1,8 @@
 // Анимация рамок карточек: две половины окантовки «рисуются» от верхней
 // середины по обеим сторонам вниз и встречаются в нижней середине.
-// Пути строим в пикселях под фактический размер карточки (border-box),
-// при ресайзе перестраиваем. Без JS остаётся обычный CSS-бордер.
+// SVG живёт ТОЛЬКО на время анимации: после её конца возвращается обычный
+// CSS-бордер (в статике он идеален при любом зуме). Размеры берём из
+// getBoundingClientRect (дробные пиксели — без расхождений с карточкой).
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -9,8 +10,8 @@
   var INSET = 1;   // половина stroke 2px — центр линии на месте CSS-бордера
   var RADIUS = 22; // border-radius карточки
 
-  // старт отрисовки — сразу после каскадного появления карточки ([data-load])
-  var DELAYS = { '6': 0.8, '7': 0.9, '8': 1.0, '10': 1.2 };
+  // старт отрисовки — после каскадного появления карточки ([data-load])
+  var DELAYS = { '6': 0.9, '7': 1.1, '8': 1.3, '10': 1.7 };
 
   function halves(w, h) {
     var r = RADIUS - INSET;
@@ -31,7 +32,7 @@
     return [left, right];
   }
 
-  function build(card) {
+  document.querySelectorAll('.sect--shops .card, .card--opt').forEach(function (card) {
     var svg = document.createElementNS(NS, 'svg');
     svg.setAttribute('class', 'card__border');
     svg.setAttribute('aria-hidden', 'true');
@@ -40,28 +41,33 @@
       p.setAttribute('pathLength', '100');
       svg.appendChild(p);
     });
-    card.appendChild(svg);
-    var delay = DELAYS[card.getAttribute('data-load')] || 0.8;
-    svg.style.setProperty('--draw-delay', delay + 's');
-    card.classList.add('card--drawn');
 
     function size() {
-      var d = halves(card.offsetWidth, card.offsetHeight);
+      var rect = card.getBoundingClientRect();
+      var d = halves(rect.width, rect.height);
       paths[0].setAttribute('d', d[0]);
       paths[1].setAttribute('d', d[1]);
     }
     size();
-    return size;
-  }
 
-  var resizers = [];
-  document.querySelectorAll('.sect--shops .card, .card--opt').forEach(function (card) {
-    resizers.push(build(card));
-  });
+    svg.style.setProperty('--draw-delay', (DELAYS[card.getAttribute('data-load')] || 0.9) + 's');
+    card.appendChild(svg);
+    card.classList.add('card--drawn');
 
-  var t;
-  window.addEventListener('resize', function () {
-    clearTimeout(t);
-    t = setTimeout(function () { resizers.forEach(function (fn) { fn(); }); }, 120);
+    // рамка дорисована — убираем SVG, возвращаем CSS-бордер
+    var done = 0;
+    svg.addEventListener('animationend', function () {
+      if (++done < paths.length) return;
+      card.classList.remove('card--drawn');
+      svg.remove();
+    });
+
+    // пока SVG жив, при ресайзе/зуме перестраиваем пути под новый размер
+    var t;
+    window.addEventListener('resize', function () {
+      if (!svg.isConnected) return;
+      clearTimeout(t);
+      t = setTimeout(size, 100);
+    });
   });
 })();
