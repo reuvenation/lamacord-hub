@@ -334,7 +334,7 @@ a { color: inherit; text-decoration: none; }
   border: 2px solid var(--accent);
   padding: 30px 28px 28px;
   gap: 10px;
-  background: url(../assets/opt-bg-white3.jpg) center 30% / cover no-repeat #fff;
+  background: url(../assets/opt-bg-white4.jpg) center / cover no-repeat #fff;
 }
 .card--opt .card__stat { max-width: 56ch; color: rgba(22, 21, 15, .78); }
 .card--opt .card__name {
